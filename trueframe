@@ -1,0 +1,21 @@
+#!/usr/bin/env php
+<?php
+
+/**
+ * TrueFrame - CLI Entry Point
+ *
+ * This script is the entry point for the TrueFrame command-line interface.
+ * It loads the application, resolves the console kernel, and runs the command.
+ */
+
+// Autoload Composer dependencies
+require __DIR__.'/vendor/autoload.php';
+
+// Load the application instance
+$app = require_once __DIR__.'/bootstrap/app.php';
+
+// Resolve the console application and run it
+$console = $app->make(TrueFrame\Console\Application::class);
+
+// Pass command line arguments, excluding the script name itself
+exit($console->run(array_slice($argv, 1)));
