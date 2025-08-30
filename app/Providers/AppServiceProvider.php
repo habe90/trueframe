@@ -13,32 +13,26 @@ class AppServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        // Logger (glavni binding)
+        // 1) Registruj Logger
         $this->app->singleton(TFLogger::class, function ($app) {
             /** @var ConfigRepo $config */
             $config = $app->make(ConfigRepo::class);
             return new TFLogger($config);
         });
 
-        // PSR-3 alias i string aliasi (pokrij sve slučajeve)
+        // 2) Alias-i na PSR-3 i string 'log'
         $this->app->alias(TFLogger::class, LoggerInterface::class);
         $this->app->alias(TFLogger::class, 'log');
+        $this->app->singleton('log', fn($app) => $app->make(TFLogger::class));
 
-        // Exception handler koristi logger iz kontejnera
-        $this->app->singleton(Handler::class, function ($app) {
-            return new Handler($app, $app->make(TFLogger::class));
-        });
+        // 3) Exception handler koji koristi logger iz kontejnera
+        $this->app->singleton(Handler::class, fn($app) => new Handler($app, $app->make(TFLogger::class)));
+        $this->app->make(Handler::class)->register();
 
-        // Session
+        // 4) Session
         $this->app->singleton(SessionManager::class, fn() => new SessionManager());
         $this->app->alias('session', SessionManager::class);
-
-        // Registruj globalni handler
-        $this->app->make(Handler::class)->register();
     }
 
-    public function boot(): void
-    {
-        //
-    }
+    public function boot(): void {}
 }
