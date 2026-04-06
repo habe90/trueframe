@@ -3,29 +3,32 @@
 namespace App\Models;
 
 use TrueFrame\Database\ORM;
-use TrueFrame\Application;
 
 /**
- * A simple example model using the basic ORM.
- * In a real application, this would extend a base Model class provided by the ORM.
+ * User model using the base Model class.
  */
-class User
+class User extends Model
 {
-    protected ORM $orm;
     protected string $table = 'users';
-
-    public function __construct()
-    {
-        // Resolve the application instance from the global helper or container
-        // This is a common pattern, but direct dependency injection is preferred where possible
-        global $app;
-        $this->orm = $app->resolve(ORM::class);
-    }
 
     public function find(string $id): ?array
     {
-        return $this->orm->find($this->table, (int) $id);
+        global $app;
+        $orm = $app->resolve(ORM::class);
+        return $orm->find($this->table, (int) $id);
     }
 
-    // Add other CRUD methods here
+    public function findByEmail(string $email): ?array
+    {
+        global $app;
+        $orm = $app->resolve(ORM::class);
+        return $orm->findBy($this->table, 'email', $email);
+    }
+
+    public function create(array $data): bool
+    {
+        global $app;
+        $orm = $app->resolve(ORM::class);
+        return $orm->insert($this->table, $data);
+    }
 }

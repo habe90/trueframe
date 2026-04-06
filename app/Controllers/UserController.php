@@ -3,23 +3,37 @@
 namespace App\Controllers;
 
 use App\Models\User;
+use TrueFrame\Http\Response;
 
-class UserController
+class UserController extends Controller
 {
-    public function show(string $id): void
+    public function show(string $id): Response
     {
-        $user = new User(); // In a real app, this would use a repository or service layer
-        $userData = $user->find($id); // Assuming a basic find method on a User model
+        $user = new User();
+        $userData = $user->find($id);
 
         if ($userData) {
-            echo "Viewing user: " . htmlspecialchars($userData['name']) . " with ID: " . htmlspecialchars($id);
-        } else {
-            echo "User with ID: " . htmlspecialchars($id) . " not found.";
+            return $this->view('home', [
+                'title' => 'User: ' . $userData['name'],
+                'user' => $userData,
+            ]);
         }
+
+        return $this->redirect('/', 302);
     }
 
-    public function edit(string $id): void
+    public function edit(string $id): Response
     {
-        echo "Editing user with ID: " . htmlspecialchars($id);
+        $user = new User();
+        $userData = $user->find($id);
+
+        if ($userData) {
+            return $this->view('home', [
+                'title' => 'Edit User: ' . $userData['name'],
+                'user' => $userData,
+            ]);
+        }
+
+        return $this->redirect('/', 302);
     }
 }

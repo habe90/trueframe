@@ -48,6 +48,11 @@ class StartSession implements MiddlewareInterface
 
         $response = $next($request);
 
+        // Preserve old input if this is a redirect response
+        if (in_array($response->getStatusCode(), [301, 302, 303, 307, 308])) {
+            $this->session->put('_old_input', $request->all());
+        }
+
         // Store old input and flash data for the next request
         $this->storeFlashData($request);
 
@@ -82,13 +87,6 @@ class StartSession implements MiddlewareInterface
     {
         // Flash new data
         // Any data set via session()->flash() during this request is already in $_SESSION['_flash']
-
-        // Re-flash old input if redirected back
-        // This check is simplified, a real response object would have this method
-        $response = session()->get('last_response');
-        if ($response && in_array($response->getStatusCode(), [301, 302, 303, 307, 308])) {
-            $this->session->flashInput($request->all());
-        }
 
         // Clean up old_input from current request
         $this->session->forget('_old_input_current');
