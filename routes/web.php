@@ -1,6 +1,6 @@
 <?php
 
-use App\Controllers\HomeController;
+use App\Http\Controllers\HomeController;
 use App\Models\User;
 use TrueFrame\Http\Request;
 

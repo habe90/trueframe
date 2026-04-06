@@ -14,7 +14,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string|null
      */
-    protected ?string $namespace = 'App\\Controllers';
+    protected ?string $namespace = 'App\\Http\\Controllers';
 
     /**
      * Register any application services.
