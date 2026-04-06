@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1a50d37056165aab2b9447fcba6a7267",
+    "content-hash": "d0e5a9f6257829b8a737e9f165ff5cb9",
     "packages": [
         {
             "name": "graham-campbell/result-type",
@@ -603,16 +603,16 @@
         },
         {
             "name": "trueframe/framework",
-            "version": "v0.1.1",
+            "version": "v0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/habe90/framework.git",
-                "reference": "0e5aaca1d9426657d9e475121df5c02ae631459e"
+                "reference": "9e8cbfc5aff8701421b6d6f1da6532ad30fb5155"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/habe90/framework/zipball/0e5aaca1d9426657d9e475121df5c02ae631459e",
-                "reference": "0e5aaca1d9426657d9e475121df5c02ae631459e",
+                "url": "https://api.github.com/repos/habe90/framework/zipball/9e8cbfc5aff8701421b6d6f1da6532ad30fb5155",
+                "reference": "9e8cbfc5aff8701421b6d6f1da6532ad30fb5155",
                 "shasum": ""
             },
             "require": {
@@ -640,9 +640,9 @@
             "description": "TrueFrame PHP microframework core",
             "support": {
                 "issues": "https://github.com/habe90/framework/issues",
-                "source": "https://github.com/habe90/framework/tree/v0.1.1"
+                "source": "https://github.com/habe90/framework/tree/v0.2.0"
             },
-            "time": "2025-08-30T19:35:42+00:00"
+            "time": "2026-04-06T23:22:00+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

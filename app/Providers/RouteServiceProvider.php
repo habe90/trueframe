@@ -5,7 +5,6 @@ namespace App\Providers;
 use TrueFrame\Application;
 use TrueFrame\Support\ServiceProvider;
 use TrueFrame\Routing\Router;
-use App\Routing\Router as AppRouter;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -24,9 +23,8 @@ class RouteServiceProvider extends ServiceProvider
     public function register(): void
     {
         // Register under 'router' key — core alias maps Router::class → 'router'
-        // Use our AppRouter which fixes the route matching bug
         $this->app->singleton('router', function ($app) {
-            return new AppRouter($app);
+            return new Router($app);
         });
     }
 

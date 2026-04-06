@@ -5,7 +5,7 @@
   "license": "MIT",
   "require": {
     "php": "^8.2",
-    "trueframe/framework": "^0.1"
+    "trueframe/framework": "^0.2"
   },
   "autoload": {
     "psr-4": {
