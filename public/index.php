@@ -1,9 +1,7 @@
 <?php
 
 /**
- * TrueFrame - A lightweight, Laravel-like PHP framework.
- *
- * @author Architect AI
+ * TrueFrame — AI-Powered PHP Framework
  */
 
 // Autoload Composer dependencies

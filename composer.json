@@ -1,6 +1,6 @@
 {
   "name": "trueframe/trueframe",
-  "description": "TrueFrame application skeleton",
+  "description": "TrueFrame — AI-powered PHP framework for rapid development",
   "type": "project",
   "license": "MIT",
   "require": {
