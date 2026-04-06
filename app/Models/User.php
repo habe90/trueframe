@@ -9,7 +9,7 @@ use TrueFrame\Database\ORM;
  */
 class User extends Model
 {
-    protected string $table = 'users';
+    protected ?string $table = 'users';
 
     public function find(string $id): ?array
     {
