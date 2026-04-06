@@ -6,6 +6,7 @@ use TrueFrame\Application;
 use TrueFrame\Support\ServiceProvider;
 use TrueFrame\View\View;
 use TrueFrame\View\Compiler;
+use App\View\Compiler as AppCompiler;
 use TrueFrame\Config\Repository;
 
 class ViewServiceProvider extends ServiceProvider
@@ -17,18 +18,19 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        // Use our AppCompiler which fixes the stopSection() bug
         $this->app->singleton(Compiler::class, function ($app) {
-            return new Compiler($app->make(Repository::class));
+            return new AppCompiler($app->make(Repository::class));
         });
 
-        $this->app->singleton(View::class, function ($app) {
+        // Register under 'view.factory' key — core alias maps View::class → 'view.factory'
+        $this->app->singleton('view.factory', function ($app) {
             return new View(
                 $app,
                 $app->make(Repository::class),
                 $app->make(Compiler::class)
             );
         });
-        $this->app->alias('view.factory', View::class);
     }
 
     /**
