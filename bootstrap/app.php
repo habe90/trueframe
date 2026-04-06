@@ -1,6 +1,6 @@
 <?php
 
-use TrueFrame\Application;
+use App\Application;
 use TrueFrame\Config\Repository;
 use TrueFrame\Container\Container;
 use TrueFrame\Support\Env;
@@ -17,7 +17,8 @@ $app->singleton(Container::class, fn() => $app);
 Env::load($app->basePath());
 
 // Load configuration
-$app->singleton(Repository::class, function () use ($app) {
+// Register under 'config' key — core alias maps Repository::class → 'config'
+$app->singleton('config', function () use ($app) {
     $config = new Repository();
     $config->set('app', require $app->basePath('config/app.php'));
     $config->set('database', require $app->basePath('config/database.php'));
@@ -25,7 +26,6 @@ $app->singleton(Repository::class, function () use ($app) {
     $config->set('auth', require $app->basePath('config/auth.php'));
     return $config;
 });
-$app->alias('config', Repository::class);
 
 
 // Register core service providers
