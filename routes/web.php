@@ -22,15 +22,14 @@ $router->post('/login', function(Request $request) {
     }
 
     // Validate credentials against database
-    $user = new User();
-    $userData = $user->findByEmail($email);
+    $userData = User::findByEmail($email);
 
-    if (!$userData || !password_verify($password, $userData['password'])) {
+    if (!$userData || !password_verify($password, $userData->password)) {
         session()->flash('error', 'Invalid email or password.');
         return redirect('/login');
     }
 
-    session()->put('user_id', $userData['id']);
+    session()->put('user_id', $userData->getKey());
     session()->flash('success', 'Logged in successfully!');
     return redirect('/');
 });
@@ -70,19 +69,23 @@ $router->post('/register', function(Request $request) {
     }
 
     // Check if user already exists
-    $user = new User();
-    $existing = $user->findByEmail($email);
+    $existing = User::findByEmail($email);
     if ($existing) {
         session()->flash('error', 'A user with this email already exists.');
         return redirect('/register');
     }
 
     // Create user
-    $user->create([
-        'name' => $name,
-        'email' => $email,
-        'password' => password_hash($password, PASSWORD_BCRYPT),
-    ]);
+    try {
+        User::create([
+            'name' => $name,
+            'email' => $email,
+            'password' => password_hash($password, PASSWORD_BCRYPT),
+        ]);
+    } catch (\Throwable $e) {
+        session()->flash('error', 'Database not configured. Run migrations first: php trueframe migrate');
+        return redirect('/register');
+    }
 
     session()->flash('success', 'Registered successfully! Please log in.');
     return redirect('/login');

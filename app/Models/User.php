@@ -2,33 +2,25 @@
 
 namespace App\Models;
 
-use TrueFrame\Database\ORM;
-
-/**
- * User model using the base Model class.
- */
 class User extends Model
 {
     protected ?string $table = 'users';
 
-    public function find(string $id): ?array
-    {
-        global $app;
-        $orm = $app->resolve(ORM::class);
-        return $orm->find($this->table, (int) $id);
-    }
+    protected array $fillable = ['name', 'email', 'password'];
 
-    public function findByEmail(string $email): ?array
+    /**
+     * Find a user by email address.
+     */
+    public static function findByEmail(string $email): ?static
     {
-        global $app;
-        $orm = $app->resolve(ORM::class);
-        return $orm->findBy($this->table, 'email', $email);
-    }
-
-    public function create(array $data): bool
-    {
-        global $app;
-        $orm = $app->resolve(ORM::class);
-        return $orm->insert($this->table, $data);
+        try {
+            $data = static::query()->where('email', '=', $email)->first();
+            if ($data) {
+                return (new static)->fill($data)->setKey($data[(new static)->getKeyName()]);
+            }
+        } catch (\Throwable $e) {
+            // No database connection — return null gracefully
+        }
+        return null;
     }
 }
