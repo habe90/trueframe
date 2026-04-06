@@ -33,7 +33,10 @@ class Kernel
      */
     public function registerCommands(ConsoleApplication $console): void
     {
-        // Register your application-specific console commands here
-        // Example: $console->add(new \App\Console\Commands\MyCustomCommand());
+        $console->add(new Commands\AiCrudCommand());
+        $console->add(new Commands\AiControllerCommand());
+        $console->add(new Commands\AiApiCommand());
+        $console->add(new Commands\AiAuthCommand());
+        $console->add(new Commands\AiAnalyzeCommand());
     }
 }
