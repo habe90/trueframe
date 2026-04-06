@@ -2,16 +2,17 @@
 
 use App\Controllers\HomeController;
 use App\Models\User;
-use TrueFrame\Routing\Route;
 use TrueFrame\Http\Request;
 
-Route::get('/', [HomeController::class, 'index']);
+$router = app(TrueFrame\Routing\Router::class);
+
+$router->get('/', [HomeController::class, 'index']);
 
 // Auth Routes
-Route::get('/login', function() {
+$router->get('/login', function() {
     return view('auth.login');
 });
-Route::post('/login', function(Request $request) {
+$router->post('/login', function(Request $request) {
     $email = $request->input('email');
     $password = $request->input('password');
 
@@ -33,16 +34,16 @@ Route::post('/login', function(Request $request) {
     session()->flash('success', 'Logged in successfully!');
     return redirect('/');
 });
-Route::get('/logout', function() {
+$router->get('/logout', function() {
     session()->forget('user_id');
     session()->flash('success', 'Logged out successfully!');
     return redirect('/');
 });
 
-Route::get('/register', function() {
+$router->get('/register', function() {
     return view('auth.register');
 });
-Route::post('/register', function(Request $request) {
+$router->post('/register', function(Request $request) {
     $name = $request->input('name');
     $email = $request->input('email');
     $password = $request->input('password');
@@ -88,8 +89,8 @@ Route::post('/register', function(Request $request) {
 });
 
 // Example route with middleware
-Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', function() {
+$router->group(['middleware' => ['auth']], function () use ($router) {
+    $router->get('/dashboard', function() {
         return view('home', ['title' => 'Dashboard (Auth Required)']);
     });
 });

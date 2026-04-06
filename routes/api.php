@@ -1,17 +1,18 @@
 <?php
 
-use TrueFrame\Routing\Route;
 use TrueFrame\Http\Response;
 
+$router = app(TrueFrame\Routing\Router::class);
+
 // Example API route
-Route::get('/status', function(TrueFrame\Http\Request $request) {
+$router->get('/status', function(TrueFrame\Http\Request $request) {
     return response()->json(['status' => 'ok', 'message' => 'API is running!']);
 });
 
 // Protected API route
 // TODO: Replace session-based auth with token-based auth (e.g., Bearer tokens)
 // for proper stateless API authentication.
-Route::get('/user', function(TrueFrame\Http\Request $request) {
+$router->get('/user', function(TrueFrame\Http\Request $request) {
     $userId = session()->get('user_id');
     if (!$userId) {
         return response()->json(['error' => 'Unauthenticated.'], 401);
