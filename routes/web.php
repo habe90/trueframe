@@ -24,7 +24,19 @@ $router->post('/login', function(Request $request) {
     // Validate credentials against database
     $userData = User::findByEmail($email);
 
-    if (!$userData || !password_verify($password, $userData->password)) {
+    if ($userData === null) {
+        // Could be no DB or no user found — check if DB is even reachable
+        try {
+            app(TrueFrame\Database\Connection::class);
+            // DB works, user just doesn't exist
+            session()->flash('error', 'Invalid email or password.');
+        } catch (\Throwable $e) {
+            session()->flash('error', 'Database not configured. Run: php trueframe migrate');
+        }
+        return redirect('/login');
+    }
+
+    if (!password_verify($password, $userData->password)) {
         session()->flash('error', 'Invalid email or password.');
         return redirect('/login');
     }

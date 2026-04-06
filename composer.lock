@@ -603,16 +603,16 @@
         },
         {
             "name": "trueframe/framework",
-            "version": "v0.2.0",
+            "version": "v0.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/habe90/framework.git",
-                "reference": "9e8cbfc5aff8701421b6d6f1da6532ad30fb5155"
+                "reference": "2661d9aeca0ea2051c329686a52c5a1ce5e841ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/habe90/framework/zipball/9e8cbfc5aff8701421b6d6f1da6532ad30fb5155",
-                "reference": "9e8cbfc5aff8701421b6d6f1da6532ad30fb5155",
+                "url": "https://api.github.com/repos/habe90/framework/zipball/2661d9aeca0ea2051c329686a52c5a1ce5e841ff",
+                "reference": "2661d9aeca0ea2051c329686a52c5a1ce5e841ff",
                 "shasum": ""
             },
             "require": {
@@ -640,9 +640,9 @@
             "description": "TrueFrame PHP microframework core",
             "support": {
                 "issues": "https://github.com/habe90/framework/issues",
-                "source": "https://github.com/habe90/framework/tree/v0.2.0"
+                "source": "https://github.com/habe90/framework/tree/v0.2.2"
             },
-            "time": "2026-04-06T23:22:00+00:00"
+            "time": "2026-04-06T23:41:02+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
