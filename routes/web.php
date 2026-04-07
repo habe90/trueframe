@@ -111,11 +111,6 @@ $router->group(['middleware' => ['auth']], function () use ($router) {
 });
 
 
-// Product CRUD Routes
-$router->get('/products', [\App\Http\Controllers\ProductController::class, 'index']);
-$router->get('/products/create', [\App\Http\Controllers\ProductController::class, 'create']);
-$router->post('/products', [\App\Http\Controllers\ProductController::class, 'store']);
-$router->get('/products/{id}', [\App\Http\Controllers\ProductController::class, 'show']);
-$router->get('/products/{id}/edit', [\App\Http\Controllers\ProductController::class, 'edit']);
-$router->put('/products/{id}', [\App\Http\Controllers\ProductController::class, 'update']);
-$router->delete('/products/{id}', [\App\Http\Controllers\ProductController::class, 'destroy']);
+
+
+
